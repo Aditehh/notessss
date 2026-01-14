@@ -25,7 +25,7 @@ export default function AuthButton() {
         if (session) {
             router.push("/notes")
         }
-    }, [session, router])
+    }, [session, router])   
 
 
 
