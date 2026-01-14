@@ -1,8 +1,11 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "./db";
+import { headers } from "next/headers";
+
 
 export const auth = betterAuth({
+
     database: prismaAdapter(prisma, {
         provider: "postgresql"
     }),
@@ -13,3 +16,22 @@ export const auth = betterAuth({
         }
     }
 })
+
+export async function getCurrentUser() {
+    const reqHeaders = await headers();
+
+    const session = await auth.api.getSession({
+        headers: reqHeaders,
+    });
+
+    if (!session || !session.user) {
+        return null;
+    }
+
+    return {
+        id: session.user.id,
+        email: session.user.email,
+        name: session.user.name
+    }
+
+}

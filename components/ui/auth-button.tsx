@@ -12,6 +12,13 @@ export default function AuthButton() {
 
     const { data: session, isPending } = useSession();
 
+    useEffect(() => {
+        if (session) {
+            router.push("/notes")
+        }
+    }, [session, router])
+
+
     if (isPending) {
         return (
             <div>
@@ -21,11 +28,7 @@ export default function AuthButton() {
         )
     }
 
-    useEffect(() => {
-        if (session) {
-            router.push("/notes")
-        }
-    }, [session, router])      
+
 
 
 
@@ -35,7 +38,7 @@ export default function AuthButton() {
         })
     }
 
-    
+
 
 
 
