@@ -18,6 +18,7 @@ export const auth = betterAuth({
 })
 
 export async function getCurrentUser() {
+    
     const reqHeaders = await headers();
 
     const session = await auth.api.getSession({
@@ -35,6 +36,8 @@ export async function getCurrentUser() {
     }
 
 }
+
+
 
 export async function getAppUser() {
     const authUser = await getCurrentUser();
