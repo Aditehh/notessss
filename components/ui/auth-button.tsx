@@ -4,7 +4,7 @@ import React from 'react'
 import { Button } from './button'
 import { useRouter } from 'next/navigation'
 import { Github, Loader2 } from 'lucide-react'
-import { signIn, useSession } from '@/lib/auth-client'
+import { signIn, useSession, signOut } from '@/lib/auth-client'
 import { useEffect } from 'react'
 
 export default function AuthButton() {
@@ -12,11 +12,11 @@ export default function AuthButton() {
 
     const { data: session, isPending } = useSession();
 
-    useEffect(() => {
-        if (session) {
-            router.push("/notes")
-        }
-    }, [session, router])
+    // useEffect(() => {
+    //     if (session) {
+    //         router.push("/notes")
+    //     }
+    // }, [session, router])
 
 
     if (isPending) {
@@ -26,6 +26,17 @@ export default function AuthButton() {
                 Loading...
             </div>
         )
+    }
+
+    if (session) {
+        return (
+            <Button
+                variant="destructive"
+                onClick={() => signOut()}
+            >
+                Sign out
+            </Button>
+        );
     }
 
 
