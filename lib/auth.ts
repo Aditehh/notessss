@@ -17,13 +17,13 @@ export const auth = betterAuth({
     }
 })
 
-export async function getCurrentUser() {
-    
-    const reqHeaders = await headers();
 
+
+export async function getCurrentUser() {
+    const reqHeaders = await headers();
     const session = await auth.api.getSession({
         headers: reqHeaders,
-    });
+    })
 
     if (!session || !session.user) {
         return null;
@@ -32,12 +32,9 @@ export async function getCurrentUser() {
     return {
         id: session.user.id,
         email: session.user.email,
-        name: session.user.name
+        name: session.user.name,
     }
-
 }
-
-
 
 export async function getAppUser() {
     const authUser = await getCurrentUser();
@@ -45,7 +42,10 @@ export async function getAppUser() {
 
     const appUser = await prisma.appUser.upsert({
         where: { id: authUser.id },
-        update: {},
+        update: {
+            email: authUser.email,
+            name: authUser.name
+        },
         create: {
             id: authUser.id,
             email: authUser.email,
