@@ -1,30 +1,36 @@
-import React from 'react'
-import { getCurrentUser } from '@/lib/auth'
-import { getAppUser } from '@/lib/auth';
-import { getNotes } from '@/lib/notes';
-import createNote from '@/lib/notes';
-import { preconnect } from 'react-dom';
+import { getCurrentUser, getAppUser } from "@/lib/auth";
+import { getNotes } from "@/lib/notes";
+import createNote from "@/lib/notes";
 
 export default async function NotesPage() {
-
-    const user1 = await getAppUser();
-
-    const user = await getCurrentUser();
-
-    console.log(user)
+    const user = await getAppUser();
+    if (!user) return null;
 
     const notes = await getNotes();
 
     if (notes.length === 0) {
-        await createNote("My first note", "this note was auto-created")
+        await createNote(
+            "My first note",
+            "this note was auto-created"
+        );
     }
 
     const updatedNotes = await getNotes();
 
-
     return (
-        <pre>
-            {JSON.stringify(updatedNotes, null, 2)}
-        </pre>
-    )
+        <main>
+            <h1>Your notes</h1>
+
+            {updatedNotes.length === 0 && <p>No notes yet</p>}
+
+            <ul>
+                {updatedNotes.map(note => (
+                    <li key={note.id}>
+                        <h3>{note.title}</h3>
+                        <p>{note.content}</p>
+                    </li>
+                ))}
+            </ul>
+        </main>
+    );
 }

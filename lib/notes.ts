@@ -5,14 +5,14 @@ export default async function createNote(title: string, content: string) {
     const user = await getAppUser();
     if (!user) throw new Error("Not logged in")
 
-    const note = await prisma.note.create({
+    return prisma.note.create({
         data: {
             title,
             content,
             appUserId: user.id
         }
     })
-    return note;
+    // return note;
 }
 
 export async function getNotes() {
@@ -20,12 +20,12 @@ export async function getNotes() {
     if (!user)
         return []
 
-    const notes = await prisma.note.findMany({
+    return prisma.note.findMany({
         where: { appUserId: user.id },
         orderBy: [
             { pinned: "desc" },
             { createdAt: "desc" }
         ]
     })
-    return notes;
+    // return notes;
 }
