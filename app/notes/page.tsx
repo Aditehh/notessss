@@ -1,7 +1,9 @@
+// "use client"
 import { Button } from "@/components/ui/button";
 import { getCurrentUser, getAppUser } from "@/lib/auth";
 import { getNotes } from "@/lib/notes";
 import createNote from "@/lib/notes";
+import { deleteNote } from "@/lib/notes";
 
 export default async function NotesPage() {
 
@@ -28,6 +30,13 @@ export default async function NotesPage() {
 
     }
 
+    // const deletenote = await deleteNote();
+    async function deleteOneNote() {
+        "use client"
+        
+
+    }
+
     return (
         <main>
             <h1>Your notes</h1>
@@ -47,7 +56,9 @@ export default async function NotesPage() {
                     <li key={note.id}>
                         <h3>{note.title}</h3>
                         <p>{note.content}</p>
+                        <button onClick={() => deleteOneNote()}>Deletenote heehee</button>
                     </li>
+
                 ))}
             </ul>
         </main>
