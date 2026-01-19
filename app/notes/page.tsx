@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import DeleteButton from "@/components/ui/delete-note-button";
 import { getAppUser } from "@/lib/auth";
 import { getNotes, deleteNote } from "@/lib/notes";
 import createNote from "@/lib/notes";
@@ -47,7 +48,7 @@ export default async function NotesPage() {
                         {/* DELETE NOTE */}
                         <form action={deleteOneNote}>
                             <input type="hidden" name="noteId" value={note.id} />
-                            <button type="submit">Delete</button>
+                            <DeleteButton />
                         </form>
                     </li>
                 ))}
