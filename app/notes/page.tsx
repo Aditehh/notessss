@@ -19,12 +19,12 @@ export default async function NotesPage() {
         await createNote(title, content);
     }
 
-    async function deleteOneNote(formData: FormData) {
-        "use server";
+    // async function deleteOneNote(formData: FormData) {
+    //     "use server";
 
-        const noteId = formData.get("noteId") as string;
-        await deleteNote(noteId);
-    }
+    //     const noteId = formData.get("noteId") as string;
+    //     await deleteNote(noteId);
+    // }
 
     return (
         <main>
@@ -46,10 +46,9 @@ export default async function NotesPage() {
                         <p>{note.content}</p>
 
                         {/* DELETE NOTE */}
-                        <form action={deleteOneNote}>
-                            <input type="hidden" name="noteId" value={note.id} />
-                            <DeleteButton />
-                        </form>
+
+                        <DeleteButton noteId={note.id} />
+
                     </li>
                 ))}
             </ul>
