@@ -11,4 +11,11 @@ export async function updateNoteAction(noteid: string, title: string, content: s
     await editNote(noteid, title, content)
 }
 
+export async function createNoteAction(formdata: FormData) {
+    const title = formdata.get("title") as string;
+    const content = formdata.get("content") as string;
 
+    if (!title || !content) throw new Error("Title and Content are required")
+
+    await createNote(title, content)
+}
