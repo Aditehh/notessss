@@ -1,64 +1,55 @@
-// "use client"
 import { Button } from "@/components/ui/button";
-import { getCurrentUser, getAppUser } from "@/lib/auth";
-import { getNotes } from "@/lib/notes";
+import { getAppUser } from "@/lib/auth";
+import { getNotes, deleteNote } from "@/lib/notes";
 import createNote from "@/lib/notes";
-import { deleteNote } from "@/lib/notes";
 
 export default async function NotesPage() {
-
     const user = await getAppUser();
     if (!user) return null;
 
-    // const notes = await getNotes();
+    const notes = await getNotes();
 
-    // if (notes.length === 0) {
-    //     await createNote(
-    //         "My first note",
-    //         "this note was auto-created"
-    //     );
-    // }
+    async function addNote(formData: FormData) {
+        "use server";
 
-    const updatedNotes = await getNotes();
+        const title = formData.get("title") as string;
+        const content = formData.get("content") as string;
 
-    async function addNote(formdata: FormData) {
-        "use server"
-        const title = formdata.get("title") as string;
-        const content = formdata.get("content") as string;
-
-        await createNote(title, content)
-
+        await createNote(title, content);
     }
 
-    // const deletenote = await deleteNote();
-    async function deleteOneNote() {
-        "use client"
-        
+    async function deleteOneNote(formData: FormData) {
+        "use server";
 
+        const noteId = formData.get("noteId") as string;
+        await deleteNote(noteId);
     }
 
     return (
         <main>
             <h1>Your notes</h1>
 
-            <form
-                className="flex flex-col"
-                action={addNote}>
+            {/* ADD NOTE */}
+            <form action={addNote} className="flex flex-col gap-2">
                 <input name="title" placeholder="Title" required />
-                <input type="text" name="content" placeholder="Content" required />
-                <Button variant={"outline"}>Add note</Button>
+                <input name="content" placeholder="Content" required />
+                <Button variant="outline">Add note</Button>
             </form>
 
-            {updatedNotes.length === 0 && <p>No notes yet</p>}
+            {notes.length === 0 && <p>No notes yet</p>}
 
             <ul>
-                {updatedNotes.map(note => (
+                {notes.map(note => (
                     <li key={note.id}>
                         <h3>{note.title}</h3>
                         <p>{note.content}</p>
-                        <button onClick={() => deleteOneNote()}>Deletenote heehee</button>
-                    </li>
 
+                        {/* DELETE NOTE */}
+                        <form action={deleteOneNote}>
+                            <input type="hidden" name="noteId" value={note.id} />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
                 ))}
             </ul>
         </main>
