@@ -8,14 +8,14 @@ export default async function NotesPage() {
     const user = await getAppUser();
     if (!user) return null;
 
-    const notes = await getNotes();
+    // const notes = await getNotes();
 
-    if (notes.length === 0) {
-        await createNote(
-            "My first note",
-            "this note was auto-created"
-        );
-    }
+    // if (notes.length === 0) {
+    //     await createNote(
+    //         "My first note",
+    //         "this note was auto-created"
+    //     );
+    // }
 
     const updatedNotes = await getNotes();
 
