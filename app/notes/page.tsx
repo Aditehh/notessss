@@ -4,7 +4,7 @@ import createNote from "@/lib/notes";
 
 export default async function NotesPage() {
     const user = await getAppUser();
-    if (!user) return null;
+    if (!user) return null;  
 
     const notes = await getNotes();
 
