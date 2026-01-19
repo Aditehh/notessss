@@ -3,6 +3,7 @@ import DeleteButton from "@/components/ui/delete-note-button";
 import { getAppUser } from "@/lib/auth";
 import { getNotes, deleteNote } from "@/lib/notes";
 import createNote from "@/lib/notes";
+import EditButton from "@/components/ui/edit-note-button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 export default async function NotesPage() {
@@ -54,9 +55,10 @@ export default async function NotesPage() {
                             <DropdownMenuContent>
                                 {/* <DropdownMenuItem> <DeleteButton noteId={note.id} /></DropdownMenuItem> */}
                                 <DeleteButton noteId={note.id} />
-                                <DropdownMenuItem>Edit</DropdownMenuItem>
+                                {/* <DropdownMenuItem>Edit</DropdownMenuItem> */}
+                                <EditButton noteId={note.id} currentTitle={""} currentContent={""} />
 
-                            </DropdownMenuContent>
+                            </DropdownMenuContent>  
                         </DropdownMenu>
 
                     </li>
