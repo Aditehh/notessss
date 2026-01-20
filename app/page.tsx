@@ -20,6 +20,7 @@ export default function Home() {
               <Github className="rounded-2xl " />
             </Link>
           </Button>
+          
         </div>
       </nav>
 
