@@ -33,6 +33,7 @@ export async function getCurrentUser() {
         id: session.user.id,
         email: session.user.email,
         name: session.user.name,
+        image: session.user.image,
     }
 }
 
@@ -45,12 +46,14 @@ export async function getAppUser() {
         where: { id: authUser.id },
         update: {
             email: authUser.email,
-            name: authUser.name
+            name: authUser.name,
+            image: authUser.image
         },
         create: {
             id: authUser.id,
             email: authUser.email,
-            name: authUser.name
+            name: authUser.name,
+            image: authUser.image,
         }
     })
     return appUser;

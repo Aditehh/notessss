@@ -17,14 +17,15 @@ export default function Navbar({
             <div className="flex items-center gap-4">
                 {userImage ? (
                     <Avatar>
-                        <AvatarImage src={userImage} />
-                        <AvatarFallback>
+                        <AvatarImage src={userImage || ""} alt={userName || "User"} />
+                        {/* <AvatarFallback>
                             {userName?.[0] ?? "U"}
-                        </AvatarFallback>
+                        </AvatarFallback> */}
                     </Avatar>
                 ) : (
-                    <AuthButton />
+                    <AvatarImage src={""} />
                 )}
+                <AuthButton />
             </div>
         </nav>
     );

@@ -1,19 +1,22 @@
-// "use client";
 
 import MainHeroPage from "@/components/ui/main-page-hero";
 import Navbar from "@/components/ui/navbar";
 import { getAppUser } from "@/lib/auth";
 
 
-export default function Home() {
+export default async function Home() {
 
-  const user = getAppUser();
+
+  const user = await getAppUser();
   return (
     <main className="min-h-screen flex flex-col justify-between bg-linear-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-500">
       {/* Navbar */}
       <Navbar
+
+
         userImage={user?.image}
         userName={user?.name}
+
       />
 
       {/* Hero Section */}

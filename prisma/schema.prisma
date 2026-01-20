@@ -77,9 +77,10 @@ model Verification {
 }
 
 model AppUser {
-  id    String @id
-  email String @unique
+  id    String  @id
+  email String  @unique
   name  String
+  image String?
   notes Note[]
 }
 
