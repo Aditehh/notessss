@@ -1,37 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Input } from "./input";
+import { Input } from "@/components/ui/input";
 
 export default function NotesSearch() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-    const [query, setQuery] = useState(searchParams.get("q") || "");
+  const initialQuery = searchParams.get("q") || "";
+  const [query, setQuery] = useState(initialQuery);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            const params = new URLSearchParams(searchParams.toString());
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (query) {
+        router.replace(`/notes?q=${encodeURIComponent(query)}`);
+      } else {
+        router.replace("/notes");
+      }
+    }, 300);
 
-            if (query) {
-                params.set("q", query);
-            } else {
-                params.delete("q");
-            }
+    return () => clearTimeout(timeout);
+  }, [query, router]); // ✅ SAFE
 
-            router.replace(`/notes?${params.toString()}`);
-        }, 300);
-
-        return () => clearTimeout(timeout);
-    }, [query]);
-
-    return (
-        <Input
-            placeholder="Search notes..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="mb-4"
-        />
-    );
+  return (
+    <Input
+      placeholder="Search notes..."
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+    />
+  );
 }

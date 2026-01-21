@@ -48,7 +48,7 @@ export default async function NotesPage({
                 </Button>
             </div>
 
-            <NotesSearch />
+            {/* <NotesSearch /> */}
 
             <main className="min-h-screen px-6 md:px-20 py-12 bg-gray-50 dark:bg-gray-900 transition-colors duration-500">
                 {/* Page Title */}
