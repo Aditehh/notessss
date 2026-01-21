@@ -8,14 +8,14 @@ import { revalidatePath } from "next/cache";
 export async function deleteNoteAction(noteId: string) {
     await deleteNote(noteId);
 
-      revalidatePath("/notes");
+    revalidatePath("/notes");
 
 }
 
 export async function updateNoteAction(noteid: string, title: string, content: string) {
     await editNote(noteid, title, content)
 
-      revalidatePath("/notes");
+    revalidatePath("/notes");
 
 }
 
@@ -27,13 +27,13 @@ export async function createNoteAction(formdata: FormData) {
 
     await createNote(title, content)
 
-      revalidatePath("/notes");
+    revalidatePath("/notes");
 
 }
 
 export async function togglePinNoteaction(noteId: string) {
     await togglePinNote(noteId)
 
-      revalidatePath("/notes");
+    revalidatePath("/notes");
 
 }
