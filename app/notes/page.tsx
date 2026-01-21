@@ -35,7 +35,7 @@ export default async function NotesPage() {
                 >
                     <Link href={"/"}>
                         <ArrowLeft className="h-4 w-6" />
-                        
+
                     </Link>
                 </Button>
             </div>
