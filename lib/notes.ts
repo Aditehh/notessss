@@ -16,13 +16,24 @@ export default async function createNote(title: string, content: string) {
     // return note;
 }
 
-export async function getNotes() {
+export async function getNotes(search?: string) {
     const user = await getAppUser();
     if (!user)
         return []
 
     return prisma.note.findMany({
-        where: { appUserId: user.id },
+
+        where: {
+            appUserId: user.id,
+            ...(search && {
+                OR: [
+                    { title: { contains: search, mode: "insensitive" } },
+                    { content: { contains: search, mode: "insensitive" } },
+                ],
+            }),
+        },
+
+
         orderBy: [
             { pinned: "desc" },
             { createdAt: "desc" }
