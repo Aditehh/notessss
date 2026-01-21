@@ -1,5 +1,6 @@
 import prisma from "./db";
 import { getAppUser } from "./auth";
+import { Nerko_One } from "next/font/google";
 
 export default async function createNote(title: string, content: string) {
     const user = await getAppUser();
@@ -74,3 +75,27 @@ export async function editNote(noteId: string, title: string, content: string) {
         data: { title, content }
     })
 }
+
+export async function togglePinNote(noteId: string) {
+    const user = await getAppUser();
+    if (!user) throw new Error("cannot pin/unpin notes")
+
+    const note = await prisma.note.findFirst({
+        where: {
+            id: noteId,
+            appUserId: user.id,
+        }
+    })
+
+    if (!note) {
+        throw new Error("note not found")
+    }
+
+    return prisma.note.update({
+        where: { id: noteId },
+        data: {
+            pinned: !note.pinned
+        }
+    })
+}
+
