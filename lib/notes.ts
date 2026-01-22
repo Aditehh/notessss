@@ -111,9 +111,11 @@ export async function togglePinNote(noteId: string) {
 }
 
 
-export async function addTagNote(noteId: string, tagName: string, color?: string) {
+export async function addTagToNote(noteId: string, tagName: string, color?: string) {
+
     const user = await getAppUser();
     if (!user) throw new Error("unauthorized")
+
 
     //this creates a tag if the tag doesn't exist
     const tag = await prisma.tag.upsert({
@@ -124,6 +126,7 @@ export async function addTagNote(noteId: string, tagName: string, color?: string
         update: {}
     })
 
+
     //this adds tag to the note
     await prisma.noteTag.upsert({
         where: {
@@ -132,7 +135,5 @@ export async function addTagNote(noteId: string, tagName: string, color?: string
         create: { noteId, tagId: tag.id },
         update: {}
     })
-
-
 
 }

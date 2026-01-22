@@ -36,15 +36,18 @@ export default function Navbar({
                 <div >
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button variant="outline">
-                                {userImage ? (
-                                    <Avatar>
-                                        <AvatarImage src={userImage || ""} alt={userName || "User"} />
-                                    </Avatar>
-                                ) : (
-                                    <AvatarImage src={""} />
-                                )}
+                            <Button variant="outline" className="p-0 rounded-full">
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage
+                                        src={userImage ?? undefined}
+                                        alt={userName ?? "User"}
+                                    />
+                                    <AvatarFallback>
+                                        {userName?.[0]?.toUpperCase() ?? "U"}
+                                    </AvatarFallback>
+                                </Avatar>
                             </Button>
+
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-56" align="start">
                             <DropdownMenuLabel>

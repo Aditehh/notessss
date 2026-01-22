@@ -42,13 +42,13 @@ export default function MainHeroPage() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                    <Image
+                    {/* <Image
                         src="/notes-illustration.png" // Replace with a subtle minimal illustration
                         alt="Notes Illustration"
                         width={500}
                         height={400}
                         className="rounded-xl shadow-xl"
-                    />
+                    /> */}
                 </motion.div>
             </section>
 
