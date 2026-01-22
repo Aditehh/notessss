@@ -17,20 +17,14 @@ import NotesList from "@/components/ui/notes-list";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import NotesSearch from "@/components/ui/note-search";
 
-export default async function NotesPage({
-    searchParams,
-}: {
-    searchParams: { q?: string };
-}) {
+export default async function NotesPage() {
     const user = await getAppUser();
     if (!user) return null;
 
     // const notes = await getNotes();
 
-    const search = searchParams.q;
-    const notes = await getNotes(search);
+    const notes = await getNotes();
 
 
 
@@ -65,14 +59,10 @@ export default async function NotesPage({
                 {/* Notes List */}
                 {/* <NotesList notes={notes} /> */}
 
-                {notes.length === 0 ? (
-                    <p className="text-muted-foreground">
-                        {search ? "No matching notes found." : "No notes yet."}
-                    </p>
-                ) : (
-                    <NotesList notes={notes} />
-                )}
 
+                <NotesList notes={notes} />
+
+                
             </main>
         </>
 

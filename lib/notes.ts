@@ -1,6 +1,5 @@
 import prisma from "./db";
 import { getAppUser } from "./auth";
-import { Nerko_One } from "next/font/google";
 
 export default async function createNote(title: string, content: string) {
     const user = await getAppUser();
@@ -16,7 +15,7 @@ export default async function createNote(title: string, content: string) {
     // return note;
 }
 
-export async function getNotes(search?: string) {
+export async function getNotes() {
     const user = await getAppUser();
     if (!user)
         return []
@@ -25,21 +24,22 @@ export async function getNotes(search?: string) {
 
         where: {
             appUserId: user.id,
-            ...(search && {
-                OR: [
-                    { title: { contains: search, mode: "insensitive" } },
-                    { content: { contains: search, mode: "insensitive" } },
-                ],
-            }),
         },
 
 
         orderBy: [
             { pinned: "desc" },
             { createdAt: "desc" }
-        ]
+        ],
+
+        include: {
+            noteTags: {
+                include: {
+                    tag: true
+                }
+            }
+        }
     })
-    // return notes;
 }
 
 export async function deleteNote(noteId: string) {
@@ -110,3 +110,29 @@ export async function togglePinNote(noteId: string) {
     })
 }
 
+
+export async function addTagNote(noteId: string, tagName: string, color?: string) {
+    const user = await getAppUser();
+    if (!user) throw new Error("unauthorized")
+
+    //this creates a tag if the tag doesn't exist
+    const tag = await prisma.tag.upsert({
+        where: {
+            name_appUserId: { name: tagName, appUserId: user.id }
+        },
+        create: { name: tagName, color, appUserId: user.id },
+        update: {}
+    })
+
+    //this adds tag to the note
+    await prisma.noteTag.upsert({
+        where: {
+            noteId_tagId: { noteId, tagId: tag.id }
+        },
+        create: { noteId, tagId: tag.id },
+        update: {}
+    })
+
+
+
+}

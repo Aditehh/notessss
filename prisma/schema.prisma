@@ -82,15 +82,43 @@ model AppUser {
   name  String
   image String?
   notes Note[]
+  tags  Tag[]
 }
 
 model Note {
-  id        String   @id @default(cuid())
+  id        String    @id @default(cuid())
   title     String
   content   String
   appUserId String
-  appUser   AppUser  @relation(fields: [appUserId], references: [id])
-  pinned    Boolean  @default(false)
+  appUser   AppUser   @relation(fields: [appUserId], references: [id])
+  pinned    Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  noteTags  NoteTag[]
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  color     String? // optional, for UI
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+
+  appUserId String
+  appUser   AppUser @relation(fields: [appUserId], references: [id])
+
+  notes NoteTag[]
+
+  @@unique([name, appUserId]) // 👈 VERY IMPORTANT
+}
+
+model NoteTag {
+  id String @id @default(uuid())
+
+  noteId String
+  tagId  String
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, tagId]) // 👈 prevents duplicate tags on same note
 }
