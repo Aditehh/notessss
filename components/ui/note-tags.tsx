@@ -12,7 +12,7 @@ import { addTagToNoteaction } from "@/lib/actions/notes"
 
 interface NoteTagsProps {
     noteId: string
-}
+}   
 
 export default function NoteTags({ noteId }: NoteTagsProps) {
 
