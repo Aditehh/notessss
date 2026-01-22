@@ -9,12 +9,16 @@ import {
 } from "@/components/ui/popover"
 import { useState } from "react"
 import { addTagToNoteaction } from "@/lib/actions/notes"
+import { NotewithTags } from "@/lib/types"
 
 interface NoteTagsProps {
-    noteId: string
+    noteId: string,
+    note: NotewithTags
+
 }
 
-export default function NoteTags({ noteId }: NoteTagsProps) {
+
+export default function NoteTags({ noteId, note }: NoteTagsProps) {
 
     const [color, setColor] = useState('#ffffff'); // Initial color
 
@@ -22,14 +26,14 @@ export default function NoteTags({ noteId }: NoteTagsProps) {
         setColor(event.target.value);
     };
 
-    // console.log(addTagToNoteaction)
-
-    const [tagInput, setTagInput] = useState("")
+    const maxTagsReached = note.noteTags.length >= 2;
 
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button variant="outline">+tags</Button>
+                <Button
+                    disabled={maxTagsReached}
+                    variant="outline">+tags</Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
                 <div className="grid gap-4">
@@ -74,7 +78,9 @@ export default function NoteTags({ noteId }: NoteTagsProps) {
 
                             </div>
                             <div>
-                                <Button type="submit">
+                                <Button
+                                    disabled={maxTagsReached}
+                                    type="submit">
                                     Add Tag
                                 </Button>
                             </div>

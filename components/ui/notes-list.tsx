@@ -18,6 +18,11 @@ interface NotesListProps {
 
 
 export default function NotesList({ notes }: NotesListProps) {
+
+
+    // const maxTagsReached = notes.noteTags.length >= 2;
+
+
     return (
         <ul className="grid gap-4 pt-10">
             {notes.map((note, i) => (
@@ -39,13 +44,13 @@ export default function NotesList({ notes }: NotesListProps) {
                             <h4>
                                 {note.noteTags.map((noteTag) => (
                                     <Button
-                                    variant={"secondary"}
+                                        variant={"secondary"}
                                         key={noteTag.tag.id}
-                                        className={`px-2 py-1 rounded-full text-sm font-medium text-white`}
+                                        className={`px-2 mx-2 py-1 rounded-full text-sm font-medium text-white`}
                                         style={{ backgroundColor: noteTag.tag.color || "#000" }}
                                     >
                                         {noteTag.tag.name}
-                                        
+
                                     </Button>
                                 ))}
                             </h4>
@@ -53,7 +58,7 @@ export default function NotesList({ notes }: NotesListProps) {
                         </div>
 
                         <div className="flex gap-2 mt-2">
-                            <NoteTags noteId={note.id} />
+                            <NoteTags noteId={note.id} note={note} />
                             <EditButton noteId={note.id} currentTitle={note.title} currentContent={note.content} />
                             <DeleteButton noteId={note.id} />
                             <PinToggleButton noteId={note.id} pinned={note.pinned} />
