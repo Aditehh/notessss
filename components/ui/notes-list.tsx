@@ -6,17 +6,16 @@ import EditButton from "./edit-note-button";
 import React from "react";
 import PinToggleButton from "./toggle-pin-button";
 import NoteTags from "./note-tags";
-
-interface Note {
-    id: string;
-    title: string;
-    content: string;
-    pinned: boolean;
-}
+import { NotewithTags } from "@/lib/types";
+import { Button } from "./button";
 
 interface NotesListProps {
-    notes: Note[];
+    notes: NotewithTags[]
 }
+
+
+
+
 
 export default function NotesList({ notes }: NotesListProps) {
     return (
@@ -37,6 +36,20 @@ export default function NotesList({ notes }: NotesListProps) {
 
                             <h3 className="font-bold text-[18px] text-gray-600">{note.title}</h3>
                             <p className="font-semibold text-lg text-gray-500">{note.content}</p>
+                            <h4>
+                                {note.noteTags.map((noteTag) => (
+                                    <Button
+                                    variant={"secondary"}
+                                        key={noteTag.tag.id}
+                                        className={`px-2 py-1 rounded-full text-sm font-medium text-white`}
+                                        style={{ backgroundColor: noteTag.tag.color || "#000" }}
+                                    >
+                                        {noteTag.tag.name}
+                                        
+                                    </Button>
+                                ))}
+                            </h4>
+
                         </div>
 
                         <div className="flex gap-2 mt-2">

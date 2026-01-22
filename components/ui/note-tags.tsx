@@ -12,9 +12,15 @@ import { addTagToNoteaction } from "@/lib/actions/notes"
 
 interface NoteTagsProps {
     noteId: string
-}   
+}
 
 export default function NoteTags({ noteId }: NoteTagsProps) {
+
+    const [color, setColor] = useState('#ffffff'); // Initial color
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setColor(event.target.value);
+    };
 
     // console.log(addTagToNoteaction)
 
@@ -50,13 +56,22 @@ export default function NoteTags({ noteId }: NoteTagsProps) {
                             </div>
 
                             <div className="grid grid-cols-3 items-center gap-4">
-                                <Label htmlFor="color">Color</Label>
+                                {/* <Label htmlFor="color">Color</Label>
                                 <Input
                                     id="color"
                                     name="color"
                                     defaultValue="none"
                                     className="col-span-2 h-8"
+                                /> */}
+
+                                <Label htmlFor="color-picker">Select Color: </Label>
+                                <Input
+                                    type="color"
+                                    id="color"
+                                    name="color"
+                                    onChange={handleChange}
                                 />
+
                             </div>
                             <div>
                                 <Button type="submit">

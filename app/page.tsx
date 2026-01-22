@@ -2,6 +2,7 @@
 import MainHeroPage from "@/components/ui/main-page-hero";
 import Navbar from "@/components/ui/navbar";
 import { getAppUser } from "@/lib/auth";
+import { NotewithTags } from "@/lib/types";
 
 
 export default async function Home() {
