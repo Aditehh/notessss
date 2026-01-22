@@ -5,6 +5,7 @@ import DeleteButton from "./delete-note-button";
 import EditButton from "./edit-note-button";
 import React from "react";
 import PinToggleButton from "./toggle-pin-button";
+import NoteTags from "./note-tags";
 
 interface Note {
     id: string;
@@ -39,6 +40,7 @@ export default function NotesList({ notes }: NotesListProps) {
                         </div>
 
                         <div className="flex gap-2 mt-2">
+                            <NoteTags noteId={note.id} />
                             <EditButton noteId={note.id} currentTitle={note.title} currentContent={note.content} />
                             <DeleteButton noteId={note.id} />
                             <PinToggleButton noteId={note.id} pinned={note.pinned} />

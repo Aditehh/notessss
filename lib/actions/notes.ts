@@ -4,6 +4,7 @@ import createNote, { deleteNote } from "@/lib/notes";
 import { editNote } from "@/lib/notes";
 import { togglePinNote } from "@/lib/notes";
 import { revalidatePath } from "next/cache";
+import { addTagToNote } from "@/lib/notes";
 
 export async function deleteNoteAction(noteId: string) {
     await deleteNote(noteId);
@@ -36,4 +37,17 @@ export async function togglePinNoteaction(noteId: string) {
 
     revalidatePath("/notes");
 
+}
+
+export async function addTagToNoteaction(formdata: FormData) {
+
+
+    const noteId = formdata.get("noteId") as string
+    const tagName = formdata.get("name") as string
+    const color = formdata.get("color") as string
+
+
+    await addTagToNote(noteId, tagName, color || undefined)
+
+    revalidatePath("/notes")
 }

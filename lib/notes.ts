@@ -116,6 +116,8 @@ export async function addTagToNote(noteId: string, tagName: string, color?: stri
     const user = await getAppUser();
     if (!user) throw new Error("unauthorized")
 
+        
+
 
     //this creates a tag if the tag doesn't exist
     const tag = await prisma.tag.upsert({
