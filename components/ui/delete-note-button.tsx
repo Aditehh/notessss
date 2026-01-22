@@ -3,6 +3,8 @@ import { Button } from './button';
 import { useState } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
 import { deleteNoteAction } from '@/lib/actions/notes';
+import { Trash2 } from "lucide-react";
+
 
 
 interface DeleteButtonProps {
@@ -14,9 +16,25 @@ export default function DeleteButton({ noteId }: DeleteButtonProps) {
     const [open, setOpen] = useState(false);
 
     return (
+        
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline">Delete</Button>
+                <Button
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "4px",
+                        padding: "6px 10px",
+                        borderRadius: "6px",
+                        border: "1px solid #fca5a5",
+                        background: "#fee2e2",
+                        color: "#b91c1c",
+                        cursor: "pointer",
+                    }}
+                >
+                    <Trash2 size={16} />
+                    
+                </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-106.25">

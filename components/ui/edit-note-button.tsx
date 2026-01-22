@@ -6,6 +6,7 @@ import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, Dialog
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateNoteAction } from "@/lib/actions/notes";
+import { Pencil } from "lucide-react";
 
 interface EditNoteProps {
   noteId: string;
@@ -20,7 +21,22 @@ export default function EditButton({ noteId, currentTitle, currentContent }: Edi
     <Dialog open={open} onOpenChange={setOpen}>
       {/* Button to open dialog */}
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Note</Button>
+        <button
+          style={{
+            width: "36px",
+            height: "36px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+            background: "#f9fafb",
+            cursor: "pointer",
+          }}
+        >
+          <Pencil size={16} />
+
+        </button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-106.25">
