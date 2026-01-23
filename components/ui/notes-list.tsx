@@ -10,7 +10,9 @@ import { NotewithTags } from "@/lib/types";
 import { Button } from "./button";
 
 interface NotesListProps {
+    
     notes: NotewithTags[]
+
 }
 
 

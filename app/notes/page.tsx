@@ -62,9 +62,9 @@ export default async function NotesPage() {
 
                 <NotesList notes={notes} />
 
-            </main>   
+            </main>
 
-            
+
         </>
 
     );
