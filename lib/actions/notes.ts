@@ -7,7 +7,6 @@ import { togglePinNote } from "@/lib/notes";
 import { revalidatePath } from "next/cache";
 import { addTagToNote } from "@/lib/notes";
 import { getTrashNotes } from "@/lib/notes";
-import { REACT_LOADABLE_MANIFEST } from "next/dist/shared/lib/constants";
 
 
 
@@ -42,6 +41,7 @@ export async function softDeleteNoteAction(noteId: string) {
     await softDeleteNote(noteId);
 
     revalidatePath("/notes")
+
 }
 
 
@@ -64,9 +64,11 @@ export async function addTagToNoteaction(formdata: FormData) {
     await addTagToNote(noteId, tagName, color || undefined)
 
     revalidatePath("/notes")
+
 }
 
 export async function getTrashNotesaction() {
+
     await getTrashNotes();
 
 }
@@ -76,4 +78,5 @@ export async function restoreTrashNotesaction(noteId: string) {
     await restoreTrashNotes(noteId)
 
     revalidatePath("/notes/trash")
+    
 }

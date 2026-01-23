@@ -33,7 +33,20 @@ export default async function TrashPage() {
                 <h1 className="text-3xl font-bold mb-6">Trash</h1>
 
                 {trashNotes.length === 0 && (
-                    <p className="text-gray-500">Trash is empty</p>
+                    <div>
+
+                        <p className="text-gray-500">Trash is empty</p>
+                        <p className="text-gray-500 ">
+                            Goto notes to delete some
+                            <Button
+                            variant={"secondary"}
+                            className="mx-2">
+                                <Link href={"/notes"}>
+                                    Notes
+                                </Link>
+                            </Button>
+                        </p>
+                    </div>
                 )}
 
                 <ul className="grid gap-4">
