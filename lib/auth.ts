@@ -40,6 +40,7 @@ export async function getCurrentUser() {
 
 export async function getAppUser() {
     const authUser = await getCurrentUser();
+    
     if (!authUser) return null;
 
     const appUser = await prisma.appUser.upsert({
