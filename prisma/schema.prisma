@@ -94,6 +94,7 @@ model Note {
   pinned    Boolean   @default(false)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
   noteTags  NoteTag[]
 }
 

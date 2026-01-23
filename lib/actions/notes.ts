@@ -1,17 +1,25 @@
 // lib/actions/notes.ts
 "use server";
-import createNote, { deleteNote } from "@/lib/notes";
+import createNote from "@/lib/notes";
+import { softDeleteNote } from "@/lib/notes";
 import { editNote } from "@/lib/notes";
 import { togglePinNote } from "@/lib/notes";
 import { revalidatePath } from "next/cache";
 import { addTagToNote } from "@/lib/notes";
 
-export async function deleteNoteAction(noteId: string) {
-    await deleteNote(noteId);
+// export async function deleteNoteAction(noteId: string) {
+//     await deleteNote(noteId);
 
-    revalidatePath("/notes");
+//     revalidatePath("/notes");
 
+// }
+
+export async function softDeleteNoteAction(noteId: string) {
+    await softDeleteNote(noteId);
+
+    revalidatePath("/notes")
 }
+
 
 export async function updateNoteAction(noteid: string, title: string, content: string) {
     await editNote(noteid, title, content)

@@ -24,6 +24,7 @@ export async function getNotes() {
 
         where: {
             appUserId: user.id,
+            deletedAt: null,
         },
 
 
@@ -42,27 +43,30 @@ export async function getNotes() {
     })
 }
 
-export async function deleteNote(noteId: string) {
-    const user = await getAppUser();
-    if (!user)
-        throw new Error("not authenticated")
 
-    const note = await prisma.note.findFirst({
-        where: {
-            id: noteId,
-            appUserId: user.id,
-        }
-    })
-    if (!note) {
-        throw new Error("no notes found")
-    }
-    return prisma.note.delete({
-        where: {
-            id: noteId,
-        }
+// export async function deleteNote(noteId: string) {
+//     const user = await getAppUser();
+//     if (!user)
+//         throw new Error("not authenticated")
 
-    })
-}
+//     const note = await prisma.note.findFirst({
+//         where: {
+//             id: noteId,
+//             appUserId: user.id,
+//         }
+//     })
+//     if (!note) {
+//         throw new Error("no notes found")
+//     }
+//     return prisma.note.delete({
+//         where: {
+//             id: noteId,
+//         }
+
+//     })
+// }
+
+
 
 export async function editNote(noteId: string, title: string, content: string) {
     const user = await getAppUser();
@@ -86,6 +90,9 @@ export async function editNote(noteId: string, title: string, content: string) {
         data: { title, content }
     })
 }
+
+
+
 
 export async function togglePinNote(noteId: string) {
     const user = await getAppUser();
@@ -116,7 +123,7 @@ export async function addTagToNote(noteId: string, tagName: string, color?: stri
     const user = await getAppUser();
     if (!user) throw new Error("unauthorized")
 
-        
+
 
 
     //this creates a tag if the tag doesn't exist
@@ -138,4 +145,44 @@ export async function addTagToNote(noteId: string, tagName: string, color?: stri
         update: {}
     })
 
+}
+
+export async function softDeleteNote(noteId: string) {
+    const user = await getAppUser();
+    if (!user) throw new Error("unauthorized")
+
+    return prisma.note.update({
+        where: {
+            id: noteId,
+            appUserId: user.id
+        },
+        data: {
+            deletedAt: new Date()
+        }
+    })
+}
+
+export async function getTrashNotes() {
+    const user = await getAppUser();
+    if (!user) throw new Error("unauthorized")
+
+    return prisma.note.findMany({
+        where: {
+            appUserId: user.id,
+            deletedAt: {
+                not: null
+            }
+        },
+        orderBy: {
+            deletedAt: "desc",
+        },
+        include: {
+            noteTags: {
+                include: {
+                    tag: true,
+                }
+            }
+        }
+
+    })
 }
