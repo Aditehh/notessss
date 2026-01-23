@@ -165,6 +165,7 @@ export async function softDeleteNote(noteId: string) {
 
 
 export async function getTrashNotes() {
+
     const user = await getAppUser();
     if (!user) throw new Error("unauthorized")
 
@@ -186,5 +187,32 @@ export async function getTrashNotes() {
             }
         }
 
+    })
+}
+
+export async function restoreTrashNotes(noteId: string) {
+    const user = await getAppUser();
+    if (!user) throw new Error("unauthorized")
+
+    const note = await prisma.note.findFirst({
+        where: {
+            id: noteId,
+            appUserId: user.id,
+            deletedAt: { not: null },
+        },
+    });
+
+    if (!note) {
+        throw new Error("Note not found or not in trash");
+    }
+
+
+    return prisma.note.update({
+        where: {
+            id: noteId,
+        },
+        data: {
+            deletedAt: null
+        }
     })
 }

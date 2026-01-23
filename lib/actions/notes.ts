@@ -1,24 +1,15 @@
 // lib/actions/notes.ts
 "use server";
-import createNote, { hardDeleteNote } from "@/lib/notes";
+import createNote, { hardDeleteNote, restoreTrashNotes } from "@/lib/notes";
 import { softDeleteNote } from "@/lib/notes";
 import { editNote } from "@/lib/notes";
 import { togglePinNote } from "@/lib/notes";
 import { revalidatePath } from "next/cache";
 import { addTagToNote } from "@/lib/notes";
+import { getTrashNotes } from "@/lib/notes";
+import { REACT_LOADABLE_MANIFEST } from "next/dist/shared/lib/constants";
 
-export async function hardDeleteNoteAction(noteId: string) {
-    await hardDeleteNote(noteId);
 
-    revalidatePath("/notes");
-
-}
-
-export async function softDeleteNoteAction(noteId: string) {
-    await softDeleteNote(noteId);
-
-    revalidatePath("/notes")
-}
 
 
 export async function updateNoteAction(noteid: string, title: string, content: string) {
@@ -40,6 +31,21 @@ export async function createNoteAction(formdata: FormData) {
 
 }
 
+export async function hardDeleteNoteAction(noteId: string) {
+    await hardDeleteNote(noteId);
+
+    revalidatePath("/notes");
+
+}
+
+export async function softDeleteNoteAction(noteId: string) {
+    await softDeleteNote(noteId);
+
+    revalidatePath("/notes")
+}
+
+
+
 export async function togglePinNoteaction(noteId: string) {
     await togglePinNote(noteId)
 
@@ -58,4 +64,16 @@ export async function addTagToNoteaction(formdata: FormData) {
     await addTagToNote(noteId, tagName, color || undefined)
 
     revalidatePath("/notes")
+}
+
+export async function getTrashNotesaction() {
+    await getTrashNotes();
+
+}
+
+export async function restoreTrashNotesaction(noteId: string) {
+
+    await restoreTrashNotes(noteId)
+
+    revalidatePath("/notes/trash")
 }

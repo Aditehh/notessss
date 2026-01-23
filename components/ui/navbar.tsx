@@ -54,11 +54,16 @@ export default function Navbar({
                                 {userName}
                             </DropdownMenuLabel>
                             <DropdownMenuGroup>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem asChild>
                                     Profile
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem asChild>
                                     Settings
+                                </DropdownMenuItem>
+                                <DropdownMenuItem asChild>
+                                    <Link href={"/notes/trash"}>
+                                        Trash
+                                    </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuGroup>
                             <DropdownMenuSeparator />
