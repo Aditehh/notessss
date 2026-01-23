@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import DeleteButton from "./delete-note-button";
+import SoftDeleteButton from "./soft-delete-note-button";
 import EditButton from "./edit-note-button";
 import React from "react";
 import PinToggleButton from "./toggle-pin-button";
@@ -10,7 +10,7 @@ import { NotewithTags } from "@/lib/types";
 import { Button } from "./button";
 
 interface NotesListProps {
-    
+
     notes: NotewithTags[]
 
 }
@@ -62,7 +62,7 @@ export default function NotesList({ notes }: NotesListProps) {
                         <div className="flex gap-2 mt-2">
                             <NoteTags noteId={note.id} note={note} />
                             <EditButton noteId={note.id} currentTitle={note.title} currentContent={note.content} />
-                            <DeleteButton noteId={note.id} />
+                            <SoftDeleteButton noteId={note.id} />
                             <PinToggleButton noteId={note.id} pinned={note.pinned} />
                         </div>
 

@@ -44,27 +44,27 @@ export async function getNotes() {
 }
 
 
-// export async function deleteNote(noteId: string) {
-//     const user = await getAppUser();
-//     if (!user)
-//         throw new Error("not authenticated")
+export async function hardDeleteNote(noteId: string) {
+    const user = await getAppUser();
+    if (!user)
+        throw new Error("not authenticated")
 
-//     const note = await prisma.note.findFirst({
-//         where: {
-//             id: noteId,
-//             appUserId: user.id,
-//         }
-//     })
-//     if (!note) {
-//         throw new Error("no notes found")
-//     }
-//     return prisma.note.delete({
-//         where: {
-//             id: noteId,
-//         }
+    const note = await prisma.note.findFirst({
+        where: {
+            id: noteId,
+            appUserId: user.id,
+        }
+    })
+    if (!note) {
+        throw new Error("no notes found")
+    }
+    return prisma.note.delete({
+        where: {
+            id: noteId,
+        }
 
-//     })
-// }
+    })
+}
 
 
 
@@ -161,6 +161,8 @@ export async function softDeleteNote(noteId: string) {
         }
     })
 }
+
+
 
 export async function getTrashNotes() {
     const user = await getAppUser();

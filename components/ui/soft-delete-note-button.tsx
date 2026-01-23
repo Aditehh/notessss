@@ -2,7 +2,7 @@
 import { Button } from './button';
 import { useState } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
-import { deleteNoteAction } from '@/lib/actions/notes';
+import { softDeleteNoteAction } from '@/lib/actions/notes';
 import { Trash2 } from "lucide-react";
 
 
@@ -11,12 +11,12 @@ interface DeleteButtonProps {
     noteId: string;
 }
 
-export default function DeleteButton({ noteId }: DeleteButtonProps) {
+export default function SoftDeleteButton({ noteId }: DeleteButtonProps) {
 
     const [open, setOpen] = useState(false);
 
     return (
-        
+
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button
@@ -33,14 +33,14 @@ export default function DeleteButton({ noteId }: DeleteButtonProps) {
                     }}
                 >
                     <Trash2 size={16} />
-                    
+
                 </Button>
             </DialogTrigger>
 
             <DialogContent className="sm:max-w-106.25">
                 <DialogHeader>
                     <DialogTitle>Are you sure?</DialogTitle>
-                    <DialogDescription>Click Confirm to permanently delete this note.</DialogDescription>
+                    <DialogDescription>You can always go to trash to restore the notes!</DialogDescription>
                 </DialogHeader>
 
                 {/* Form wraps only the Confirm button */}
@@ -49,7 +49,7 @@ export default function DeleteButton({ noteId }: DeleteButtonProps) {
                     const id = formData.get("noteId") as string;
                     if (!id) return;
 
-                    await deleteNoteAction(id); // call server action from server file
+                    await softDeleteNoteAction(id); // call server action from server file
                     setOpen(false);
                 }}>
                     <input type="hidden" name="noteId" value={noteId} />

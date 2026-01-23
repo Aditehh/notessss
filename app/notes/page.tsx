@@ -1,6 +1,6 @@
 // "use client";
 
-import DeleteButton from "@/components/ui/delete-note-button";
+import DeleteButton from "@/components/ui/hard-delete-note-button";
 import EditButton from "@/components/ui/edit-note-button";
 import { getAppUser } from "@/lib/auth";
 import { getNotes } from "@/lib/notes";
