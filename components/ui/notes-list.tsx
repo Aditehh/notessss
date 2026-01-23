@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import SoftDeleteButton from "./soft-delete-note-button";
 import EditButton from "./edit-note-button";
-import React from "react";
 import PinToggleButton from "./toggle-pin-button";
 import NoteTags from "./note-tags";
 import { NotewithTags } from "@/lib/types";
