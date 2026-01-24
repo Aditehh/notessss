@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Note
 
-## Getting Started
+Note is a full-featured, modern note-taking web application built with Next.js, Prisma, and Tailwind CSS. The application focuses on providing a smooth and structured workflow for managing personal notes, supporting features such as tagging, pinning, soft deletion, and user authentication.
 
-First, run the development server:
+Features
 
-```bash
+User Authentication: Secure login and account management using Better Auth and GitHub OAuth.
+
+Create, Edit, Delete Notes: Users can create, update, and delete their personal notes.
+
+Pin Notes: Important notes can be pinned to the top of the list for quick access.
+
+Tagging System: Notes can be tagged with custom tags including optional colors, allowing better organization and categorization.
+
+Soft Delete and Trash Management: Deleted notes are soft deleted and moved to a trash page. Users can restore or permanently delete notes from the trash.
+
+Responsive User Interface: Built using Tailwind CSS, the app provides a clean, modern, and responsive layout.
+
+Dark Mode Support: Users can toggle between light, dark, and system themes.
+
+Technology Stack
+
+Frontend: Next.js, React, Tailwind CSS, Framer Motion
+
+Backend: Next.js API Routes, Prisma ORM
+
+Database: PostgreSQL (hosted on Supabase)
+
+Authentication: Better Auth with GitHub OAuth integration
+
+Current State
+
+The application is fully functional for note management with the following capabilities:
+
+Users can log in securely via GitHub.
+
+Notes can be created, edited, and deleted.
+
+Notes can be pinned to highlight important items.
+
+Tags can be added to notes (with optional colors) for categorization.
+
+Soft-deleted notes are available in a separate Trash page, where they can be restored or permanently deleted.
+
+Dark mode is supported across the interface.
+
+The app is structured for maintainability and scalability, allowing for future expansion into AI-assisted note management, advanced search, and other productivity features.
+
+Setup and Installation
+
+Clone the repository:
+
+git clone <repository-url>
+cd saasnote
+
+
+Install dependencies:
+
+npm install
+
+
+Configure environment variables: Create a .env file with the following variables:
+
+DATABASE_URL=<Your Supabase/Postgres connection string>
+DIRECT_URL=<Your direct database URL>
+BETTER_AUTH_URL=<Your app URL>
+BETTER_AUTH_SECRET=<Your secret>
+GITHUB_CLIENT_ID=<Your GitHub OAuth Client ID>
+GITHUB_CLIENT_SECRET=<Your GitHub OAuth Client Secret>
+NEXT_PUBLIC_APP_URL=<Your app URL>
+
+
+Run the development server:
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Access the app at http://localhost:3000
+.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Deployment
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+SaaSNote can be deployed to Vercel. Before deploying, set the environment variables in the Vercel dashboard to match your local .env configuration. Each push to the main branch will trigger an automatic deployment.
